@@ -1,53 +1,28 @@
-import React, { useContext, useState } from "react";
-import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
-// eslint-disable-next-line import/namespace
-import { AuthContext } from "../../context/AuthContext";
+import React from "react";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 
-export default function LoginScreen({ navigation }: any) {
-  const auth = useContext(AuthContext);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  if (!auth) {
-    return null;
-  }
-
-  const { login } = auth;
-
-  async function handleLogin() {
-    const success = await login(email, password);
-
-    if (!success) {
-      Alert.alert("Login failed", "Invalid email or password");
-    }
-  }
-
+export default function LoginScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Welcome Back</Text>
 
       <TextInput
         placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
         style={styles.input}
         autoCapitalize="none"
       />
 
       <TextInput
         placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
         style={styles.input}
         secureTextEntry
       />
 
-      <Button title="Login" onPress={handleLogin} />
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
 
-      <Text style={styles.link} onPress={() => navigation.navigate("Register")}>
-        Go to Register
-      </Text>
+      <Text style={styles.link}>Don’t have an account? Register</Text>
     </View>
   );
 }
@@ -56,23 +31,38 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    padding: 20,
+    padding: 24,
+    backgroundColor: "#fff",
   },
   title: {
-    fontSize: 24,
-    marginBottom: 20,
+    fontSize: 28,
+    fontWeight: "600",
     textAlign: "center",
+    marginBottom: 30,
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    marginBottom: 15,
-    borderRadius: 5,
+    borderColor: "#ddd",
+    borderRadius: 8,
+    padding: 14,
+    marginBottom: 16,
+    fontSize: 16,
+  },
+  button: {
+    backgroundColor: "#4F46E5",
+    padding: 16,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
   },
   link: {
-    marginTop: 15,
+    marginTop: 20,
     textAlign: "center",
-    color: "blue",
+    color: "#4F46E5",
   },
 });
